@@ -24,8 +24,20 @@ namespace CoinComboCounter.Models
             totalCoinCount.Add("Nickels", 0);
             totalCoinCount.Add("Pennies", 0);
 
-            // starting from largest value coin (quarters), count num of coins
+            // divide total value into quarters, store num of quarters
+            totalCoinCount["Quarters"] = totalCentValue / _quarter;
+            // store remainder
+            int remainder = totalCentValue % _quarter;
+
+            // repeat process with quarters with other coin values
+            totalCoinCount["Dimes"] = remainder / _dime;
+            remainder = remainder % _dime;
+
+            totalCoinCount["Nickels"] = remainder / _nickel;
+            remainder = remainder % _nickel;
             
+            // penny count is whatever value is left
+            totalCoinCount["Pennies"] = remainder;
 
             return totalCoinCount;
         }
